@@ -1,0 +1,9 @@
+/node_modules/
+/dist/
+/esm/
+/.vscode/
+/coverage/
+/.nyc_output/
+*.tgz
+.DS_Store
+*.log
