@@ -13,20 +13,11 @@
                     >
                         <span class="text-serif h4">Insight</span>
                     </router-link>
-                    <b-dropdown
-                        size="sm"
-                        :text="network"
+                    <b-badge
+                        class="ml-1 mt-1"
                         :variant="networkBadgeVariant"
-                        toggle-class="py-0 px-1"
-                        style="vertical-align:top"
-                        class="ml-2"
-                    >
-                        <b-dropdown-item
-                            v-for="(n, i) in switchableNetworks"
-                            :key="i"
-                            :href="n.href"
-                        >{{n.name}}</b-dropdown-item>
-                    </b-dropdown>
+                        style="font-size:10px;vertical-align:top;"
+                    >{{network}}</b-badge>
                 </b-navbar-brand>
                 <b-navbar-toggle target="nav_collapse" />
                 <b-collapse
@@ -142,18 +133,15 @@ export default Vue.extend({
                 case 'main': return 'MainNet'
                 case 'test': return 'TestNet'
                 case 'solo': return 'Solo'
-                case 'custom': return 'Custom'
-            }
-        },
-        switchableNetworks(): Array<{ name: string, href: string }> {
-            switch (genesisIdToNetwork(this.$connex.thor.genesis.id)) {
-                case 'main': return [{ name: 'TestNet', href: '#/test/' }]
-                case 'test': return [{ name: 'MainNet', href: '#/main/' }]
-                default: return [{ name: 'TestNet', href: '#/test/' }, { name: 'MainNet', href: '#/main/' }]
+                case 'custom': return 'Custom:0x'+this.$connex.thor.genesis.id.slice(-2)
             }
         },
         networkBadgeVariant() {
-            return genesisIdToNetwork(this.$connex.thor.genesis.id) === 'main' ? 'light' : 'warning'
+            switch(genesisIdToNetwork(this.$connex.thor.genesis.id)){
+                case 'main': return 'light'
+                case 'custom': return 'info'
+                default: return 'warning' 
+            }
         },
         alters() {
             return [
