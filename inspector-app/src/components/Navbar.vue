@@ -50,20 +50,7 @@
                 >Shortcuts</router-link>
             </div>
             <div class="navbar-end" style="padding-right: 20px">
-                <b-dropdown v-if="!hasConnex" v-model="netType" aria-role="list">
-                    <template slot="trigger">
-                        <b-button class="navbar-item" type="is-dark" :label="netLabel" icon-right="caret-down"/>
-                    </template>
-                    <b-dropdown-item @click="onChange('main')" value="main">
-                        Mainnet
-                    </b-dropdown-item>
-                    <b-dropdown-item @click="onChange('test')" value="test">
-                        Testnet
-                    </b-dropdown-item>
-                    <b-dropdown-item v-if="hasCustom" @click="onChange('custom')" value="custom">
-                        Custom
-                    </b-dropdown-item>
-                </b-dropdown>
+                <span class="navbar-item">{{ netName }}</span>
                 <a class="navbar-item" href="https://github.com/vechain/inspector-app" target="_blank">GitHub</a>
             </div>
         </div>
@@ -89,30 +76,23 @@ export default class Navbar extends Vue {
     private node = localStorage.getItem('custom-node')
     private genesis = localStorage.getItem('custom-network')
 
-    get netLabel() {
-        const labels = {
-            main: 'Mainnet',
-            test: 'Testnet',
-            custom: 'Custom'
+    get netName() {
+        switch (this.$connex.thor.genesis.id) {
+            case '0x00000000851caf3cfdb6e899cf5958bfb1ac3413d346d43539627e6be7ec1b4a':
+                return 'MainNet'
+            case '0x000000000b2bce3c70bc649a02749e8687721b09ed2e15997f466536b20bb127':
+                return 'TestNet'
+            case '0x00000000c05a20fbca2bf6ae3affba6af4a74b800b585bf7a4988aba7aea69f6':
+                return 'Solo'
+            default:
+                return 'Custom:0x' + this.$connex.thor.genesis.id.slice(-2)
         }
-        return labels[this.netType as 'main' | 'test' | 'custom']
-    }
-    get hasConnex() {
-        return !!window.connex
-    }
-
-    get hasCustom() {
-        return !!this.node && !!this.genesis
     }
 
     get network() {
         return this.$connex.thor.genesis.id
     }
 
-    onChange(type: 'main' | 'test' | 'custom') {
-        localStorage.setItem('last-net', type)
-        window.location.href = window.location.origin
-    }
     private async getList() {
         this.views = await DB.filters
             .filter((item) => (item.network === this.network) || (item.network === undefined)).limit(5).toArray()
@@ -140,6 +120,6 @@ export default class Navbar extends Vue {
 
 <style scoped>
 .navbar-brand.is-marginless .subtitle:not(:last-child) {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 </style>
