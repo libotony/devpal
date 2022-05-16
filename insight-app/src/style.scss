@@ -1,0 +1,41 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/bootstrap-vue/src/index.scss";
+
+body {
+  background-color: #f0f0f0;
+}
+
+.small {
+  font-size: 85%;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.12s;
+  transition-timing-function: ease;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.text-serif {
+  font-family: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif",
+    "Liberation Serif", Georgia, serif;
+}
+
+.nav-tabs {
+  flex-wrap: nowrap;
+}
+.tabs {
+  overflow-x: auto;
+}
+
+.tabs .card-header {
+  min-width: max-content;
+}
+
+.nav-link {
+    outline-style: none !important;
+}
