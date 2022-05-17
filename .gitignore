@@ -7,3 +7,5 @@
 *.tgz
 .DS_Store
 *.log
+/sites/insight
+/sites/inspector
