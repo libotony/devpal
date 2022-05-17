@@ -8,10 +8,10 @@ Some times you might need to set up a solo/custom vechain [thor](https://github.
 
 ## How to
 
-[![asciicast](https://asciinema.org/a/495154.png)](https://asciinema.org/a/495154)
-
+[![asciicast](https://asciinema.org/a/495180.png)](https://asciinema.org/a/495180)
 
 ``` shell
 npx @vechain/devpal [Thor REST URL]
 ```
 
+If `Thor REST URL` was left unset, `http://locahost:8669` will be the default value.

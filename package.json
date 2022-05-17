@@ -1,8 +1,11 @@
 {
-  "name": "devpal",
+  "name": "@vechain/devpal",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A tool help building local dev environment of vechain.",
+  "main": "dist/index.js",
+  "bin": {
+    "devpal": "dist/index.js"
+  },
   "scripts": {
     "build:insight": "cd insight-app && npm run build && cd ..",
     "build:inspector": "cd inspector-app && npm run build && cd ..",
@@ -12,6 +15,10 @@
     "build": "rm -r dist & tsc -p .",
     "lint": "eslint . --ext .ts"
   },
+  "files": [
+    "dist",
+    "sites"
+  ],
   "author": "tony.li",
   "license": "MIT",
   "devDependencies": {
@@ -30,5 +37,21 @@
     "http-proxy": "^1.18.1",
     "portfinder": "^1.0.28",
     "static-server": "^2.2.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/libotony/devpal.git"
+  },
+  "keywords": [
+    "dev",
+    "pal",
+    "vechain",
+    "insight",
+    "inspector",
+    "local"
+  ],
+  "bugs": {
+    "url": "https://github.com/libotony/devpal/issues"
+  },
+  "homepage": "https://github.com/libotony/devpal#readme"
 }

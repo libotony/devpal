@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import * as path from 'path'
 import * as fs from 'fs/promises'
 import * as chalk from 'chalk';
@@ -81,10 +83,7 @@ const idToNet = (id: string) => {
 }
 
 void (async () => {
-    if (!process.argv[2]) {
-        fatal('THOR REST URL required!')
-    }
-    const nodeUrl = process.argv[2]
+    const nodeUrl = process.argv[2] || 'http://localhost:8669'
 
     const genesis = await request<object>('GET', nodeUrl + '/blocks/0')
     await checkLogsAPI(nodeUrl)
@@ -108,6 +107,6 @@ void (async () => {
     - Network: ${chalk.blue('http://'+lan+':'+inspectorPort)}
     `)
 })().catch(e => {
-    console.log(e)
+    error(e.toString())
     process.exit(-1)
 })
