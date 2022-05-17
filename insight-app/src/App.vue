@@ -21,18 +21,6 @@ import { createConnex } from "./create-connex"
 
 export default Vue.extend({
     methods: {
-        routed() {
-            if (!this.$route.params.net) {
-                this.$router.replace({
-                    ...this.$route,
-                    params: { ...this.$route.params, net: this.$net },
-                })
-                return
-            }
-            if (this.$route.params.net !== this.$net) {
-                window.location.reload()
-            }
-        },
         async fetchPrice() {
             // see https://www.coingecko.com/api/docs/v3#/simple/get_simple_price
             const url = `https://api.coingecko.com/api/v3/simple/price?ids=vechain%2Cvethor-token&vs_currencies=usd`
@@ -54,25 +42,10 @@ export default Vue.extend({
             window.location.reload(true)
         }
     },
-    watch: {
-        '$route.path'() {
-            this.routed()
-        }
-    },
     created() {
-        let net = this.$route.params.net as "main" | "test" | undefined
-        if (!["main", "test"].includes(net!)) {
-            net = undefined
-        }
-
-        const connex = createConnex(net)
+        const connex = createConnex()
         Vue.prototype.$connex = connex
-        Vue.prototype.$net = genesisIdToNetwork(connex.thor.genesis.id)
-        if (!["main", "test"].includes(Vue.prototype.$net)) {
-            Vue.prototype.$net = undefined
-        }
-
-        this.routed()
+        Vue.prototype.$net = undefined
 
         this.$state.chainStatus = this.$connex.thor.status
         void (async () => {
