@@ -7,8 +7,8 @@
     "devpal": "dist/index.js"
   },
   "scripts": {
-    "build:insight": "cd insight-app && npm run build && cd ..",
-    "build:inspector": "cd inspector-app && npm run build && cd ..",
+    "build:insight": "cd insight-app && npx vue-cli-service build --skip-plugins pwa && cd ..",
+    "build:inspector": "cd inspector-app && npx vue-cli-service build --skip-plugins pwa && cd ..",
     "build-sites": "npm run build:insight && npm run build:inspector",
     "copy-sites": "rm -r sites/insight && rm -r sites/inspector && cp -r insight-app/dist sites/insight && cp -r inspector-app/dist sites/inspector",
     "prepare": "npm run build && npm run build-sites && npm run copy-sites",
