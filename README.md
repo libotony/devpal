@@ -2,9 +2,11 @@
 
 The best friend of developers, helps setting up the local develop environment.
 
-## Motivation
+## Introduction
+Devpal is a set of tools to help your development and testing on solo mode and start your blockchain journey smoothly. Devpal contains two tools: 
 
-Some times you might need to set up a solo/custom vechain [thor](https://github.com/vechain/thor.git) network, but the well known tools [Insight](https://insight.vecha.in) and [Inspector](https://inspector.vecha.in) are not available for local network. You might need `devpal` to help you.
++ Insight: a serverless VeChain explorer. It allows you to explore and search for blocks, transactions, and accounts.
++ Inspector:a tool that allows you to deploy and interact with the contract.
 
 ## How to
 
