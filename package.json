@@ -1,6 +1,6 @@
 {
   "name": "@vechain/devpal",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A tool help building local dev environment of vechain.",
   "main": "dist/index.js",
   "bin": {
