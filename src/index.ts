@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import * as path from 'path'
-import * as fs from 'fs/promises'
+import { promises as fs } from 'fs'
 import * as chalk from 'chalk';
 import * as portFinder from 'portfinder'
 import * as defaultGateway from 'default-gateway'
@@ -78,17 +78,17 @@ const idToNet = (id: string) => {
         case '0x00000000851caf3cfdb6e899cf5958bfb1ac3413d346d43539627e6be7ec1b4a': return 'MainNet'
         case '0x000000000b2bce3c70bc649a02749e8687721b09ed2e15997f466536b20bb127': return 'TestNet'
         case '0x00000000c05a20fbca2bf6ae3affba6af4a74b800b585bf7a4988aba7aea69f6': return 'Solo'
-        default: return 'Custom:0x'+id.slice(-2)
+        default: return 'Custom:0x' + id.slice(-2)
     }
 }
 
 void (async () => {
     const nodeUrl = process.argv[2] || 'http://localhost:8669'
 
-    const genesis = await request<object>('GET', nodeUrl + '/blocks/0')
+    const genesis = await request<{id: string}>('GET', nodeUrl + '/blocks/0')
     await checkLogsAPI(nodeUrl)
 
-    info('Connected to '+idToNet((genesis as any).id))
+    info('Connected to ' + idToNet(genesis.id))
     const [nodePort, insightPort, inspectorPort] = await findPorts()
     await (writeEnvFile(getEnvContent(nodePort, insightPort, genesis)))
 
@@ -99,12 +99,12 @@ void (async () => {
     const lan = await getLocalIP()
     console.log(`
     ${chalk.cyan('Insight')} running at:
-    - Local:   ${chalk.blue('http://localhost:'+insightPort)}
-    - Network: ${chalk.blue('http://'+lan+':'+insightPort)}
+    - Local:   ${chalk.blue('http://localhost:' + insightPort)}
+    - Network: ${chalk.blue('http://' + lan + ':' + insightPort)}
 
     ${chalk.cyan('Inspector')} running at:
-    - Local:   ${chalk.blue('http://localhost:'+inspectorPort)}
-    - Network: ${chalk.blue('http://'+lan+':'+inspectorPort)}
+    - Local:   ${chalk.blue('http://localhost:' + inspectorPort)}
+    - Network: ${chalk.blue('http://' + lan + ':' + inspectorPort)}
     `)
 })().catch(e => {
     error(e.toString())
