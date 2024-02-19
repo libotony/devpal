@@ -2,7 +2,7 @@ import * as httpProxy from 'http-proxy'
 import * as http from 'http'
 
 const setCORSHeaders = (req: http.IncomingMessage, res: http.ServerResponse) => {
-    res.setHeader('Access-Control-Allow-Origin', req.headers.origin as string)
+    res.setHeader('Access-Control-Allow-Origin', req.headers.origin ||'*')
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, HEAD')
     res.setHeader('Access-Control-Allow-Headers', 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,x-genesis-id')
     res.setHeader('Access-Control-Expose-Headers', 'x-genesis-id,x-thorest-ver')
